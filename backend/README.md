@@ -191,7 +191,7 @@ Instalação
 Clone o repositório do projeto Teste-Agenda do GitHub:
 
 ```
-git clone https://github.com/newtoncutrim/teste-adoorei
+git clone https://github.com/newtoncutrim/teste-adoorei.git
 ```
 Navegue até o diretório do projeto clonado:
 ```
