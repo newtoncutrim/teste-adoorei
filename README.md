@@ -9,7 +9,7 @@
 
 # Documentação da API de Vendas
 
-![Descrição da imagem](../images/todos-produtos.png)
+![Descrição da imagem](images/todos-produtos.png)
 ![Descrição da imagem](../images/add-produto.png)
 ![Descrição da imagem](../images/nova-venda.png)
 ![Descrição da imagem](../images/cancelar-venda.png)
