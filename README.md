@@ -10,10 +10,10 @@
 # Documentação da API de Vendas
 
 ![Descrição da imagem](images/todos-produtos.png)
-![Descrição da imagem](../images/add-produto.png)
-![Descrição da imagem](../images/nova-venda.png)
-![Descrição da imagem](../images/cancelar-venda.png)
-![Descrição da imagem](../images/pesquisar-venda.png)
+![Descrição da imagem](images/add-produto.png)
+![Descrição da imagem](images/nova-venda.png)
+![Descrição da imagem](images/cancelar-venda.png)
+![Descrição da imagem](images/pesquisar-venda.png)
 
 ### Esta API permite gerenciar vendas e produtos.
 
