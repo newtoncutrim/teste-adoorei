@@ -7,198 +7,243 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Documentação da API de Vendas
 
-<?php
+![Descrição da imagem](../images/todos-produtos.png)
+![Descrição da imagem](../images/add-produto.png)
+![Descrição da imagem](../images/nova-venda.png)
+![Descrição da imagem](../images/cancelar-venda.png)
+![Descrição da imagem](../images/pesquisar-venda.png)
 
-$curl = curl_init();
+### Esta API permite gerenciar vendas e produtos.
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/products",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D'
-));
+Produtos
+Listar Produtos
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+```
+GET /api/products
+```
+Retorna todos os produtos disponíveis.
 
-curl_close($curl);
+```
+{
+		"id": 3,
+		"name": "Schaden PLC Perspiciatis",
+		"price": "7576.36",
+		"description": "Libero doloremque vel et maxime.",
+		"created_at": "2024-03-06T00:32:22.000000Z",
+		"updated_at": "2024-03-06T00:32:22.000000Z"
+	},
+	{
+		"id": 4,
+		"name": "Bernier-Labadie Temporibus",
+		"price": "8903.89",
+		"description": "Natus corrupti ut asperiores veritatis inventore aut quia.",
+		"created_at": "2024-03-06T00:32:22.000000Z",
+		"updated_at": "2024-03-06T00:32:22.000000Z"
+	},
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
+```
+Criação de Venda
+```
+POST /api/sales
+```
+Cria uma nova venda com os produtos fornecidos.
+
+Corpo da Requisição:
+
+```
+{
+    "products": [
+        {
+            "product_id": "ID_DO_PRODUTO",
+            "quantity": "QUANTIDADE"
+        },
+        {
+            "product_id": "ID_DO_PRODUTO",
+            "quantity": "QUANTIDADE"
+        }
+    ]
 }
+```
 
+Listar Vendas
 
+```
+GET /api/sales
+```
+Retorna todas as vendas com os produtos associados.
 
-<?php
+```
+{
+		"id": 7,
+		"amount": "7576.36",
+		"created_at": "2024-03-06T00:39:10.000000Z",
+		"updated_at": "2024-03-06T00:39:10.000000Z",
+		"products": [
+			{
+				"id": 3,
+				"name": "Schaden PLC Perspiciatis",
+				"price": "7576.36",
+				"description": "Libero doloremque vel et maxime.",
+				"created_at": "2024-03-06T00:32:22.000000Z",
+				"updated_at": "2024-03-06T00:32:22.000000Z",
+				"pivot": {
+					"sale_id": 7,
+					"product_id": 3
+				}
+			}
+		]
+	},
+```
 
-$curl = curl_init();
+Detalhes da Venda
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/sales",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D',
-  CURLOPT_HTTPHEADER => array(
-    Accept: aplication/json,
-    Content-Type: aplication/json
-  )
-));
+```
+GET /api/sales/{id}
+```
+Retorna os detalhes de uma venda específica com base no ID fornecido.
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
-
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
+```{
+  "products": [
+    {
+      "product_id": 3,
+      "quantity": 1
+    },
+		{
+			"product_id": 5,
+      "quantity": 1
+		}
+  ]
 }
+```
+
+Cancelar Venda
+```
+DELETE /api/sales/{id}
+```
+Cancela uma venda com base no ID fornecido.
 
 
+Adicionar Produto a uma Venda
+```
+POST /api/sales/{id}/add-product
+```
+Adiciona um produto a uma venda existente.
 
-
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/sales",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "{\n  \"products\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    }\n  ]\n}\n",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D',
-  CURLOPT_HTTPHEADER => array(
-    Accept: aplication/json,
-    Content-Type: aplication/json,
-    User-Agent: Insomnia/2023.5.2
-  )
-));
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
-
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
+```
+{
+    "product_id": "ID_DO_PRODUTO",
+    "quantity": "QUANTIDADE"
 }
+```
+Exemplo de Uso
+Criação de Venda
 
+```
+POST /api/sales
+```
+Corpo da Requisição:
 
-
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/sales",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "{\n  \"products\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    },\n\t\t{\n\t\t\t\"product_id\": 5,\n      \"quantity\": 1\n\t\t}\n  ]\n}\n",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D',
-  CURLOPT_HTTPHEADER => array(
-    Accept: aplication/json,
-    Content-Type: aplication/json,
-    User-Agent: Insomnia/2023.5.2
-  )
-));
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
-
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
+```
+{
+    "products": [
+        {
+            "product_id": 1,
+            "quantity": 2
+        },
+        {
+            "product_id": 2,
+            "quantity": 1
+        }
+    ]
 }
-
-
-
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/sales/7",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_POSTFIELDS => "{\n  \"products\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    },\n\t\t{\n\t\t\t\"product_id\": 5,\n      \"quantity\": 1\n\t\t}\n  ]\n}\n",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D',
-  CURLOPT_HTTPHEADER => array(
-    Accept: aplication/json,
-    Content-Type: aplication/json,
-    User-Agent: Insomnia/2023.5.2
-  )
-));
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
-
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
+```
+Resposta da Criação de Venda
+```
+{
+    "sales_id": 1,
+    "amount": 250.00,
+    "products": [
+        {
+            "product_id": 1,
+            "name": "Produto 1",
+            "price": 100.00,
+            "quantity": 2
+        },
+        {
+            "product_id": 2,
+            "name": "Produto 2",
+            "price": 50.00,
+            "quantity": 1
+        }
+    ]
 }
+```
+# Instruções  para Execução do Projeto
 
+Este é um guia passo a passo para configurar e executar o projeto Teste-Agenda localmente usando Docker.
 
-<?php
+Pré-requisitos
+Docker Desktop instalado e configurado na sua máquina.
+Git instalado na sua máquina.
+Instalação
+Clone o repositório do projeto Teste-Agenda do GitHub:
 
-$curl = curl_init();
+```
+git clone https://github.com/newtoncutrim/teste-adoorei.git
+```
+Navegue até o diretório do projeto clonado:
+```
+cd teste-adoorei
+```
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:8989/api/sales/6",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "DELETE",
-  CURLOPT_POSTFIELDS => "{\n  \"products\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    },\n\t\t{\n\t\t\t\"product_id\": 5,\n      \"quantity\": 1\n\t\t}\n  ]\n}\n",
-  CURLOPT_COOKIE => 'XSRF-TOKEN=eyJpdiI6InFqN2JTQ1J5WldaNFVISFZQYkFGRkE9PSIsInZhbHVlIjoiUmVwL1hGbkUyUzF6Z2Z6WkVqOWRUZUdnemJxRklWeDVIZUhNZDMwaVJZR0lyWlRtS2dVYWpvV2Z6c2xaQk14bndtTERpZUNxekp3QXdUUWc5VFNNdy9vWXFPMVArQ1NuWUZvS2lLa09OUWtzN0NsVEgyWGlJMkgwMXVIa0VDUzEiLCJtYWMiOiI2OGJjNTgzYjllYzY1MmY4ODA4ZDc5ZDYzYWRkZDRhZmMzYjQ0ZmE1MzU1OTFjMTFmZGM4ZGEyNTY4ZTFmNzc5IiwidGFnIjoiIn0%253D; laravel_session=eyJpdiI6ImhBWXM0MVZIdjZ1azdrUnFaZkRrSWc9PSIsInZhbHVlIjoiVWowTDd5RThGNTByd2dYZWV4RGNYTEFMcHkycExyN1R3MEg0TytTSWlOTUE1Ym9ZVnVDYkFQM3BjcU1WcDJBdkFyd2JVcEk5U1BqNWJhaFBYb0hxYTdMSW9rZ1BzVEU4NGhHY3ord0lCckZMbThXRmpSbndGUzd3WnhjWEpMeW8iLCJtYWMiOiI5NDIzZTc5MmM2MWVhMmI0OTljNmRhYjEzY2I5NWM3OGFkNzJlNmMwNTdhZGJmMDgzZDAxOTExNTA1ZmIzYTIxIiwidGFnIjoiIn0%253D',
-  CURLOPT_HTTPHEADER => array(
-    Accept: aplication/json,
-    Content-Type: aplication/json,
-    User-Agent: Insomnia/2023.5.2
-  )
-));
+## Usando Makefile, Automatizado.
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+Esse comando vai fazer todo processo  de build da imagem docker e configurar o ambiente  necessário para rodar as aplicação. Incluindo a Seed os Testes e configuração do .env. Se preferir deixei os comandos para fazer manualmente a baixo!.
+```
+make start 
+```
 
-curl_close($curl);
+## Manualmente
+Execute o seguinte comando para iniciar os contêineres Docker e construir as imagens:
+```
+docker compose up -d --build
+```
+Instale as dependências do Composer executando o seguinte comando:
+```
+docker compose exec app composer install
+```
+Copie o arquivo de ambiente de exemplo .env.example para .env:
+```
+docker compose exec app cp .env.example .env
+```
+Gere a chave de criptografia do Laravel executando o seguinte comando:
+```
+docker compose exec app php artisan key:generate
+```
+Configure o banco de dados no arquivo .env com as seguintes credenciais:
+```
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+Execute as migrações do banco de dados com o seguinte comando:
+```
+docker compose exec app php artisan migrate
+```
+Execute a Seed de Produtos
+```
+docker compose exec app php artisan db:seed
+```
+Execute os Testes Unitarios
+```
+ docker compose exec app php artisan test   
+```
+Acesso Local
+Depois de seguir as etapas acima, você pode acessar o projeto Teste-Adoorei localmente no seguinte endereço:
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}
+http://localhost:8989/
